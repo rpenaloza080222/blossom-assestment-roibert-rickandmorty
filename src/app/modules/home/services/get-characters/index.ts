@@ -1,23 +1,22 @@
 import { getQuery } from "@/app/modules/shared/request-connection/queries"
-import { data_characters } from "../../data"
-import { GET_CHARACTERS } from "../../queries/GetCharacters"
+
 
 export const getCharacters = () => {
-    return getQuery`query GET_CHARACTERS{
-    characters(page: 2, filter: { name: "rick" }) {
-        info {
-            count
-        }
-        results {
-            name,
-            species
-        }
-    }
-    location(id: 1) {
+    return getQuery`
+  query GET_CHARACTERS($page: Int!, $name: String!, $status: String!, $species: String!, $gender: String!) {
+    characters(page: $page, filter: {name: $name, status: $status, species: $species, gender: $gender}) {
+      info {
+        count
+      }
+      results {
         id
+        name
+        status
+        species
+        gender
+        image
+      }
     }
-    episodesByIds(ids: [1, 2]) {
-        id
-    }
-}`
+  }`
+
 } 
