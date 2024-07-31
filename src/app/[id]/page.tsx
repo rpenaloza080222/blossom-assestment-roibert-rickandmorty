@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import MainLayoutWrapper from "../modules/home/components/MainLayoutWrapper";
 import { Character } from "../modules/home/interfaces/Character";
 import { getCharacterByIDRequest } from "../modules/home/services/get-character-by-id";
@@ -26,10 +27,18 @@ const defaultCharacter: Character = {
     "created": new Date("2017-11-04T18:48:46.250Z")
 }
 
+export const metadata: Metadata = {
+    title: "Rick And Morty Assetment",
+    description: "Rick and Morty Assetment created by Roibert Peñaloza",
+};
+
 export default async function Page(
     { params: { id }, searchParams }: { params: { id: string }, searchParams: { [key: string]: string | string[] | undefined } }
 ) {
     const data = await getCharacterByIDRequest(Number(id))
+
+    const character = data ?? defaultCharacter
+    
 
     return (
         <MainLayoutWrapper
@@ -40,7 +49,7 @@ export default async function Page(
                 gender: searchParams?.gender?.toString() ?? "",
                 page: Number(searchParams?.page ?? "1")
             }}
-            character={data ?? defaultCharacter}
+            character={character}
         >
             
        </MainLayoutWrapper>
