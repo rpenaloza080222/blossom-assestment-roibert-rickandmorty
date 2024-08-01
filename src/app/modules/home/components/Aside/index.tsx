@@ -65,9 +65,9 @@ export default async function Aside({
                 <div className="">
                     <h3 className="text-[12px] text-black mt-6 uppercase">Characters ({data?.length ?? 0})</h3>
                 </div>
-                <ul className="flex flex-col mt-4 max-h-[600px] overflow-auto">
+                <ul className="flex flex-col mt-4 max-h-[47vh] overflow-auto">
                     {data?.map((character: Character) => (
-                        <CardCharacter character={character} />
+                        <CardCharacter key={character.id} character={character} />
                     ))}
 
                 </ul>
