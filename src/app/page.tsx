@@ -8,21 +8,19 @@ import { FiltersIcon } from './modules/shared/components/FiltersIcon';
 import Aside from './modules/home/components/Aside/index';
 import MainContent from './modules/home/components/MainContent/index';
 import MainLayoutWrapper from "./modules/home/components/MainLayoutWrapper";
+import { FILTERS_KEY } from "./modules/home/constants/filters";
 const client = connection();
 export default async function Home({
   searchParams, }: {
     searchParams: { [key: string]: string | string[] | undefined };
   }) {
   console.log("searchParams", searchParams)
-
+  const species = searchParams?.species?.toString() === FILTERS_KEY.ALL ? "": searchParams?.species?.toString()  ?? ""
   return (
     <MainLayoutWrapper searchParams={
       {
         name: searchParams?.q?.toString() ?? "",
-        status: searchParams?.status?.toString() ?? "",
-        species: searchParams?.species?.toString() ?? "",
-        gender: searchParams?.gender?.toString() ?? "",
-        page: Number(searchParams?.page ?? "1") ?? 1
+        species
       }
     }  />
   );

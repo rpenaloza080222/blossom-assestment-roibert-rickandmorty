@@ -3,8 +3,8 @@ import { getQuery } from "@/app/modules/shared/request-connection/queries"
 
 export const getCharacters = () => {
     return getQuery`
-  query GET_CHARACTERS($page: Int!, $name: String!, $status: String!, $species: String!, $gender: String!) {
-    characters(page: $page, filter: {name: $name, status: $status, species: $species, gender: $gender}) {
+  query GET_CHARACTERS($name: String!, $species: String!) {
+    characters(filter: {name: $name, species: $species}) {
       info {
         count
       }
