@@ -21,6 +21,97 @@ export type FiltersInputsProps = {
   value: string;
 };
 
+const PopoverContentFilters = () => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const handleClickFilter = (
+    filterType: "character" | "species",
+    value: string
+  ) => {
+    console.log("clicknh");
+    if (filterType === "character") {
+      console.log("character");
+    } else {
+      console.log("Value", value);
+      const params = new URLSearchParams(searchParams);
+      if (value) {
+        params.set(filterType, value);
+      } else {
+        params.delete(filterType);
+      }
+      replace(`${pathname}?${params.toString()}`);
+    }
+  };
+  return (
+    <div className="flex flex-col gap-4 p-4 w-full z-30">
+      <div className="flex flex-col gap-2 w-full">
+        <label htmlFor="" className="text-[#6B7280] font-medium text-sm">
+          Character
+        </label>
+        <div className="flex items-center gap-2 w-full">
+          <Button
+            className="w-full"
+            onClick={() => handleClickFilter("character", FILTERS_KEY.ALL)}
+            variant={"outline"}
+          >
+            All
+          </Button>
+          <Button
+            className="w-full"
+            onClick={() => handleClickFilter("character", "STARRED")}
+            variant={"outline"}
+          >
+            Starred
+          </Button>
+          <Button
+            className="w-full"
+            onClick={() => handleClickFilter("character", "OTHERS")}
+            variant={"outline"}
+          >
+            Others
+          </Button>
+        </div>
+      </div>
+      <div className="flex flex-col gap-2 w-full">
+        <label htmlFor="" className="text-[#6B7280] font-medium text-sm">
+          Specie
+        </label>
+        <div className="flex items-center gap-2 w-full">
+          <Button
+            className="w-full"
+            onClick={() => handleClickFilter("species", FILTERS_KEY.ALL)}
+            variant={"outline"}
+          >
+            All
+          </Button>
+          <Button
+            className="w-full"
+            onClick={() => handleClickFilter("species", FILTERS_KEY.HUMAN)}
+            variant={"outline"}
+          >
+            Human
+          </Button>
+          <Button
+            className="w-full"
+            onClick={() => handleClickFilter("species", FILTERS_KEY.ALIEN)}
+            variant={"outline"}
+          >
+            Alien
+          </Button>
+        </div>
+      </div>
+      <Button
+        onClick={() => handleClickFilter("species", FILTERS_KEY.ALIEN)}
+        className="w-full"
+        variant={"default"}
+      >
+        Filter
+      </Button>
+    </div>
+  );
+};
+
 export default function FiltersInput({ value }: FiltersInputsProps) {
   const [search, setSearch] = useState(value);
   const [showFilterPopup, setShowFilterPopup] = useState(false);
@@ -45,9 +136,9 @@ export default function FiltersInput({ value }: FiltersInputsProps) {
     filterType: "character" | "species",
     value: string
   ) => {
-    console.log("clicknh")
+    console.log("clicknh");
     if (filterType === "character") {
-      console.log("clicknh")
+      console.log("clicknh");
     } else {
       console.log("Value", value);
       const params = new URLSearchParams(searchParams);
@@ -83,68 +174,11 @@ export default function FiltersInput({ value }: FiltersInputsProps) {
           </Button>
         </div>
       </PopOverAnchor>
-      <PopoverContent className="w-[23vw] mt-2" sideOffset={25}>
-        <div className="flex flex-col gap-4 p-4 w-full z-30">
-          <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="" className="text-[#6B7280] font-medium text-sm">
-              Character
-            </label>
-            <div className="flex items-center gap-2 w-full">
-              <Button
-                className="w-full"
-                onClick={() => handleClickFilter("character", FILTERS_KEY.ALL)}
-                variant={"outline"}
-              >
-                All
-              </Button>
-              <Button
-                className="w-full"
-                onClick={() => handleClickFilter("character", "STARRED")}
-                variant={"outline"}
-              >
-                Starred
-              </Button>
-              <Button
-                className="w-full"
-                onClick={() => handleClickFilter("character", "OTHERS")}
-                variant={"outline"}
-              >
-                Others
-              </Button>
-            </div>
-          </div>
-          <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="" className="text-[#6B7280] font-medium text-sm">
-              Specie
-            </label>
-            <div className="flex items-center gap-2 w-full" >
-              <Button
-                className="w-full"
-                onClick={() => handleClickFilter("species", FILTERS_KEY.ALL)}
-                variant={"outline"}
-              >
-                All
-              </Button>
-              <Button
-                className="w-full"
-                onClick={() => handleClickFilter("species", FILTERS_KEY.HUMAN)}
-                variant={"outline"}
-              >
-                Human
-              </Button>
-              <Button
-                className="w-full"
-                onClick={() => handleClickFilter("species", FILTERS_KEY.ALIEN)}
-                variant={"outline"}
-              >
-                Alien
-              </Button>
-            </div>
-          </div>
-          <Button  onClick={() => handleClickFilter("species", FILTERS_KEY.ALIEN)} className="w-full" variant={"default"}>
-            Filter
-          </Button>
-        </div>
+      <PopoverContent
+        className="w-[23vw] mt-2"
+        sideOffset={25}
+      >
+        <PopoverContentFilters />
       </PopoverContent>
     </Popover>
   );
