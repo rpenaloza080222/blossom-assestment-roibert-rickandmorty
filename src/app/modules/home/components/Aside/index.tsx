@@ -43,11 +43,6 @@ export default async function Aside({
 
           <StarredList />
         </div>
-        <div className="">
-          <h3 className="text-[12px] text-black mt-6 uppercase">
-            Characters ({data?.length ?? 0})
-          </h3>
-        </div>
         <ListCharacters data={data} />
       </aside>
     </div>

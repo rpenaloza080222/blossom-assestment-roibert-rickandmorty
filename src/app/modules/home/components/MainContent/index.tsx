@@ -13,7 +13,7 @@ export default function MainContent({ character, show }: MainContentProps) {
   const initials = nameSplit.map((name) => name[0]);
   return (
     <>
-      {show && (
+      { (
         <>
           <div className="flex py-6 px-6 xl:px-24  w-full flex-1">
             <div className="flex flex-col w-full">

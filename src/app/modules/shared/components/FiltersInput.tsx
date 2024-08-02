@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { FiltersIcon } from "./FiltersIcon";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   redirect,
   usePathname,
@@ -16,33 +16,27 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { FILTERS_KEY } from "../../home/constants/filters";
+import { cn } from "@/lib/utils";
+import { useFiltersStore } from "../../home/stores/filters";
+import { useFiltersCharacters } from "../../home/hooks/useFiltersCharacters";
 
 export type FiltersInputsProps = {
   value: string;
 };
 
-const PopoverContentFilters = () => {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  const handleClickFilter = (
-    filterType: "character" | "species",
-    value: string
-  ) => {
-    console.log("clicknh");
-    if (filterType === "character") {
-      console.log("character");
-    } else {
-      console.log("Value", value);
-      const params = new URLSearchParams(searchParams);
-      if (value) {
-        params.set(filterType, value);
-      } else {
-        params.delete(filterType);
-      }
-      replace(`${pathname}?${params.toString()}`);
-    }
-  };
+export type PopoverContentFiltersProps = {
+  onClickPopover: () => void;
+};
+
+const PopoverContentFilters = (props: PopoverContentFiltersProps) => {
+  const { onClickPopover } = props;
+  const {
+    handleClickFilter,
+    filter,
+    isFilterSelected
+  } = useFiltersCharacters({ onClickPopover });
+  
+  
   return (
     <div className="flex flex-col gap-4 p-4 w-full z-30">
       <div className="flex flex-col gap-2 w-full">
@@ -51,23 +45,24 @@ const PopoverContentFilters = () => {
         </label>
         <div className="flex items-center gap-2 w-full">
           <Button
-            className="w-full"
+            className={cn("w-full", isFilterSelected("character", FILTERS_KEY.ALL) && "bg-[#EEE3FF] text-[#8054C7]")}
             onClick={() => handleClickFilter("character", FILTERS_KEY.ALL)}
             variant={"outline"}
           >
             All
           </Button>
           <Button
-            className="w-full"
+            className={cn("w-full", isFilterSelected("character", "STARRED") && "bg-[#EEE3FF] text-[#8054C7]")}
             onClick={() => handleClickFilter("character", "STARRED")}
             variant={"outline"}
           >
             Starred
           </Button>
           <Button
-            className="w-full"
+            className={cn("w-full", isFilterSelected("character", "OTHERS") && "bg-[#EEE3FF] text-[#8054C7]")}
             onClick={() => handleClickFilter("character", "OTHERS")}
             variant={"outline"}
+
           >
             Others
           </Button>
@@ -79,21 +74,21 @@ const PopoverContentFilters = () => {
         </label>
         <div className="flex items-center gap-2 w-full">
           <Button
-            className="w-full"
+            className={cn("w-full", isFilterSelected("species", FILTERS_KEY.ALL) && "bg-[#EEE3FF] text-[#8054C7]")}
             onClick={() => handleClickFilter("species", FILTERS_KEY.ALL)}
             variant={"outline"}
           >
             All
           </Button>
           <Button
-            className="w-full"
+            className={cn("w-full", isFilterSelected("species", FILTERS_KEY.HUMAN) && "bg-[#EEE3FF] text-[#8054C7]")}
             onClick={() => handleClickFilter("species", FILTERS_KEY.HUMAN)}
             variant={"outline"}
           >
             Human
           </Button>
           <Button
-            className="w-full"
+            className={cn("w-full", isFilterSelected("species", FILTERS_KEY.ALIEN) && "bg-[#EEE3FF] text-[#8054C7]")}
             onClick={() => handleClickFilter("species", FILTERS_KEY.ALIEN)}
             variant={"outline"}
           >
@@ -102,7 +97,7 @@ const PopoverContentFilters = () => {
         </div>
       </div>
       <Button
-        onClick={() => handleClickFilter("species", FILTERS_KEY.ALIEN)}
+        onClick={filter}
         className="w-full"
         variant={"default"}
       >
@@ -176,9 +171,9 @@ export default function FiltersInput({ value }: FiltersInputsProps) {
       </PopOverAnchor>
       <PopoverContent
         className="w-[23vw] mt-2"
-        sideOffset={25}
+
       >
-        <PopoverContentFilters />
+        <PopoverContentFilters onClickPopover={() => setShowFilterPopup(false)} />
       </PopoverContent>
     </Popover>
   );
