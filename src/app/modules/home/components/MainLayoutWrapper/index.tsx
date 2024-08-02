@@ -6,6 +6,7 @@ export type MainLayoutWrapperProps = {
     searchParams: AsideProps
     character?: Character
     showAside?: boolean
+    showMain?:boolean
 }
 
 const defaultCharacter: Character = {
@@ -32,11 +33,11 @@ const defaultCharacter: Character = {
     "created": new Date("2017-11-04T18:48:46.250Z")
 }
 
-export default function MainLayoutWrapper({ searchParams, character, showAside }: MainLayoutWrapperProps) {
+export default function MainLayoutWrapper({ searchParams, character, showAside, showMain }: MainLayoutWrapperProps) {
     return (
         <main className="flex bg-white h-screen ">
             {showAside && <Aside {...searchParams} />}
-            <MainContent show={!showAside} character={character ?? defaultCharacter} />
+            <MainContent show={showMain} character={character ?? defaultCharacter} />
         </main>
     )
 }

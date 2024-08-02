@@ -22,6 +22,7 @@ export default async function Home({
         name: searchParams?.q?.toString() ?? "",
         species
       }
-    }  />
+      
+    } showAside showMain />
   );
 }
