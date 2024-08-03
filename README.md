@@ -1,85 +1,85 @@
-# Proyecto de Prueba: API de Rick and Morty con Next.js, Tailwind y Shadcdn
+# README: Proyecto Next.js con App Router y Zustand
 
-![Rick and Morty](https://raw.githubusercontent.com/tuusuario/rick-and-morty-graphql/main/public/rick-and-morty-banner.jpg)
+  
 
-Este es un proyecto de ejemplo que utiliza la API de Rick and Morty para mostrar datos de los personajes. Está construido con Next.js, estilizado con Tailwind CSS, y utiliza Shadcdn para la entrega de contenido estático.
+## Introducción
 
-## Requisitos
+Este proyecto es una aplicación Next.js que utiliza el nuevo App Router para una mejor experiencia de usuario y manejo de rutas. Emplea Zustand como gestor de estado global para facilitar la gestión de datos compartidos entre diferentes componentes.
 
-Antes de comenzar, asegúrate de tener instalados los siguientes componentes en tu máquina:
+  
+  
+  
 
-- [Node.js](https://nodejs.org/) (versión 12 o superior)
-- [npm](https://www.npmjs.com/) o [yarn](https://yarnpkg.com/)
+## Configuración del Entorno
 
-## Instalación
+1. **Clonar el repositorio:**
+```bash
 
-1. Clona este repositorio en tu máquina local:
+   git clone https://github.com/rpenaloza080222/blossom-assestment-roibert-rickandmorty.git
+```
+  
+2. **Instalar dependencias:**
 
-   ```bash
-   git clone https://github.com/tuusuario/rick-and-morty-graphql.git
-   cd rick-and-morty-graphql
+```bash
+cd blossom-assestment-roibert-rickandmorty
 
-Instala las dependencias:
-
-bash
-Copy code
 npm install
-o
+```
 
-bash
-Copy code
-yarn install
-Desarrollo
-Para iniciar el servidor de desarrollo, ejecuta:
+3. **Configura variable de entorno:**
+Crea un archivo .env como está en el archivo env.example as{i}
 
-bash
-Copy code
+```bash
+URL_API_RICK_AND_MORTY_GRAPHQL=
+```
+Pega la url designada para tu backend en GraphQl
+
+4. **Ejecutando la Aplicación:**  
+
+Para iniciar el servidor de desarrollo local:  
+
+```bash
 npm run dev
-o
+```
+  
+  
 
-bash
-Copy code
-yarn dev
-Luego abre tu navegador y ve a http://localhost:3000 para ver la aplicación en funcionamiento.
+La aplicación estará disponible en http://localhost:3000.
 
-Construcción
-Para construir la aplicación para producción, ejecuta:
+  
 
-bash
-Copy code
-npm run build
-o
+Utilizando la API de Rick and Morty
 
-bash
-Copy code
-yarn build
-Esto generará una carpeta out con los archivos estáticos optimizados.
+La aplicación consume datos de la API de Rick and Morty (https://rickandmortyapi.com/documentation). Las consultas a esta API se realizan en el directorio queries.
 
-Despliegue
-Después de construir la aplicación, puedes desplegar el contenido de la carpeta out en cualquier servidor estático o plataforma de alojamiento como Vercel, Netlify, GitHub Pages, etc.
+  
 
 Estructura del Proyecto
-pages/: Contiene las páginas de Next.js.
-components/: Componentes reutilizables de React.
-styles/: Archivos de estilo, principalmente configuraciones de Tailwind CSS.
-graphql/: Consultas y mutaciones GraphQL.
-Uso de la API de Rick and Morty
-Este proyecto utiliza la API de Rick and Morty para obtener datos de los personajes. La configuración de la API se encuentra en el archivo graphql/queries.js.
 
-Contribución
-Si deseas contribuir a este proyecto, por favor sigue estos pasos:
+app: Contiene las rutas y componentes principales de la aplicación.
 
-Haz un fork del repositorio.
-Crea una nueva rama (git checkout -b feature/nueva-funcionalidad).
-Realiza tus cambios y haz commit (git commit -m 'Agregar nueva funcionalidad').
-Sube tus cambios (git push origin feature/nueva-funcionalidad).
-Abre un Pull Request.
-Licencia
-Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
+modules:
 
-¡Gracias por tu interés en este proyecto! Si tienes alguna pregunta o sugerencia, no dudes en abrir un issue o contactarme.
+home: Módulo específico para la página de inicio.
 
-Contacto
-Tu Nombre
-Correo Electrónico
+components: Componentes reutilizables.
 
+constants: Constantes utilizadas en la aplicación.
+
+data: Datos estáticos o mockeados.
+
+hooks: Custom hooks para lógica reutilizable, incluyendo hooks de Zustand.
+
+interfaces: Interfaces para tipado.
+
+queries: Funciones para realizar consultas a la API de Rick and Morty.
+
+services: Servicios para realizar operaciones relacionadas con la API.
+
+stores: Gestión del estado global con Zustand.
+
+shared: Código compartido entre diferentes módulos.
+
+Zustand
+
+Zustand se utiliza para gestionar el estado global de la aplicación. Los stores de Zustand se encuentran en el directorio stores.
