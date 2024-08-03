@@ -49,7 +49,7 @@ export const useFiltersCharacters = ({ onClickPopover }: FilterCharactersParams)
                 character: params.get("character") ?? FILTERS_KEY.ALL
             }
         })
-    }, [])
+    }, [initFilters, searchParams])
 
     const isFilterSelected = (filterType: "character" | "species", filterValue: string) => {
         return filters[filterType] === filterValue

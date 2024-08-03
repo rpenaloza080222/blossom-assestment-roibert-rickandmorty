@@ -5,7 +5,7 @@ import { useFavoriteStore } from "../../stores";
 import CardCharacter from "../CardCharacter";
 import { useFiltersStore } from "../../stores/filters";
 import { FILTERS_KEY } from "../../constants/filters";
-
+import React from "react";
 export type ListCharactersProps = {
   data: Character[];
 };
