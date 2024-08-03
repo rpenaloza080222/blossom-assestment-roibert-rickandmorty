@@ -1,9 +1,13 @@
-import { Metadata } from "next";
+import { Metadata, ResolvingMetadata } from "next";
 import MainLayoutWrapper from "../modules/home/components/MainLayoutWrapper";
 import { Character } from "../modules/home/interfaces/Character";
 import { getCharacterByIDRequest } from "../modules/home/services/get-character-by-id";
 import { FILTERS_KEY } from "../modules/home/constants/filters";
 import Head from "next/head";
+type Props = {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
 
 const defaultCharacter: Character = {
   id: 1,
@@ -29,10 +33,27 @@ const defaultCharacter: Character = {
   created: new Date("2017-11-04T18:48:46.250Z"),
 };
 
-export const metadata: Metadata = {
-  title: "Rick And Morty Assetment",
-  description: "Rick and Morty Assetment created by Roibert Peñaloza",
-};
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const id = params.id
+ 
+  // fetch data
+  const data = await getCharacterByIDRequest(Number(id));
+
+  const character = data ?? defaultCharacter;
+ 
+  // optionally access and extend (rather than replace) parent metadata
+ 
+  return {
+    title: character.name,
+    openGraph: {
+      images: [character.image],
+    },
+  }
+}
 
 export default async function Page({
   params: { id },
@@ -51,7 +72,7 @@ export default async function Page({
       : searchParams?.species?.toString() ?? "";
   return (
     <>
-      <Head>
+      <Head key={character.id}>
         <title>{character.name}</title>
       </Head>
       <MainLayoutWrapper
@@ -60,7 +81,7 @@ export default async function Page({
         species,
       }}
       character={character}
-      showAside={false}
+      showAside={true}
     ></MainLayoutWrapper>
     </>
   );
