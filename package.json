@@ -2,7 +2,7 @@
   "name": "blossom-assestment-roibert-rickandmorty",
   "version": "0.1.0",
   "private": true,
-  "desciption": "Este proyecto es una aplicación Next.js que utiliza el nuevo App Router para una mejor experiencia de usuario y manejo de rutas. Emplea Zustand como gestor de estado global para facilitar la gestión de datos compartidos entre diferentes componentes."
+  "desciption": "Este proyecto es una aplicación Next.js que utiliza el nuevo App Router para una mejor experiencia de usuario y manejo de rutas. Emplea Zustand como gestor de estado global para facilitar la gestión de datos compartidos entre diferentes componentes.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
