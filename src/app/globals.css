@@ -67,3 +67,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.aside.character{
+  @apply hidden lg:flex
+}
+

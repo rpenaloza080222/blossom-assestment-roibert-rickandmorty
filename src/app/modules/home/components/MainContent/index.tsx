@@ -6,16 +6,17 @@ import Link from "next/link";
 export type MainContentProps = {
   character: Character;
   show?: boolean;
+  className?: string
 };
 
-export default function MainContent({ character, show }: MainContentProps) {
+export default function MainContent({ character, show, className }: MainContentProps) {
   const nameSplit = character.name.split(" ");
   const initials = nameSplit.map((name) => name[0]);
   return (
     <>
       { (
         <>
-          <div className="flex py-6 px-6 xl:px-24  w-full flex-1">
+          <div className={`flex py-6 px-6 xl:px-24  w-full flex-1 ${className}`}>
             <div className="flex flex-col w-full">
               <Button  variant={"ghost"} className="text-primary w-fit mb-4">
                 <Link href={"/"} title="pagina principal">

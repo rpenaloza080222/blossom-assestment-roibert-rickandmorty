@@ -5,9 +5,9 @@ import { getCharacterByIDRequest } from "../modules/home/services/get-character-
 import { FILTERS_KEY } from "../modules/home/constants/filters";
 import Head from "next/head";
 type Props = {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 const defaultCharacter: Character = {
   id: 1,
@@ -38,21 +38,21 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
-  const id = params.id
- 
+  const id = params.id;
+
   // fetch data
   const data = await getCharacterByIDRequest(Number(id));
 
   const character = data ?? defaultCharacter;
- 
+
   // optionally access and extend (rather than replace) parent metadata
- 
+
   return {
     title: character.name,
     openGraph: {
       images: [character.image],
     },
-  }
+  };
 }
 
 export default async function Page({
@@ -76,13 +76,13 @@ export default async function Page({
         <title>{character.name}</title>
       </Head>
       <MainLayoutWrapper
-      searchParams={{
-        name: searchParams?.q?.toString() ?? "",
-        species,
-      }}
-      character={character}
-      showAside={true}
-    ></MainLayoutWrapper>
+        searchParams={{
+          name: searchParams?.q?.toString() ?? "",
+          species,
+        }}
+        character={character}
+        asideClassName="character"
+      ></MainLayoutWrapper>
     </>
   );
 }
