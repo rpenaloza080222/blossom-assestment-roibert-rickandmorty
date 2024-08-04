@@ -4,6 +4,7 @@ import {
   Popover,
   PopOverAnchor,
   PopoverContent,
+  PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -128,6 +129,7 @@ const ContentFilters = (props: ContentFiltersProps) => {
 export default function FiltersInput({ value }: FiltersInputsProps) {
   const [search, setSearch] = useState(value);
   const [showFilterPopup, setShowFilterPopup] = useState(false);
+  const [showFilterSheet, setShowFilterSheet] = useState(false);
   const [size, setSize] = useState<{ width: number; height: number }>({
     width: 0,
     height: 0,
@@ -159,6 +161,10 @@ export default function FiltersInput({ value }: FiltersInputsProps) {
     };
   }, []);
 
+  useEffect(() => {
+    console.log("State of showFilter", showFilterPopup);
+  }, [showFilterPopup]);
+
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     console.log("Value", value);
@@ -173,37 +179,48 @@ export default function FiltersInput({ value }: FiltersInputsProps) {
   };
 
   const handleOpenPopUp = () => {
-    if (!isMobile) return setShowFilterPopup(!showFilterPopup);
+    console.log("Click");
+    if (!isMobile)
+      return setShowFilterPopup((showFilterPopup) => !showFilterPopup);
+    return setShowFilterSheet((showFilterSheet) => !showFilterSheet);
   };
 
   return (
     <>
       {!isMobile ? (
-        <Popover open={showFilterPopup} onOpenChange={setShowFilterPopup}>
-          <PopOverAnchor asChild>
+        <>
+          <Popover open={showFilterPopup} onOpenChange={setShowFilterPopup}>
             <SearchInput
               onChange={onChange}
               value={search}
               onClick={handleOpenPopUp}
+              isPopover
             />
-          </PopOverAnchor>
-          <PopoverContent className="w-[23vw] mt-2">
-            <ContentFilters onClickPopover={() => setShowFilterPopup(false)} />
-          </PopoverContent>
-        </Popover>
+            <PopoverContent className="w-[23vw] mt-2">
+              <ContentFilters
+                onClickPopover={() => {
+                  console.log("Click outside");
+                  setShowFilterPopup(false);
+                }}
+              />
+            </PopoverContent>
+          </Popover>
+        </>
       ) : (
         <>
-          <Sheet  open={showFilterPopup} onOpenChange={setShowFilterPopup}>
-            <SheetTrigger>
-              <SearchInput
-                onChange={onChange}
-                value={search}
-                onClick={handleOpenPopUp}
-              />
-            </SheetTrigger>
+          <SearchInput
+            onChange={onChange}
+            value={search}
+            onClick={handleOpenPopUp}
+            isPopover={false}
+          />
+          <Sheet open={showFilterSheet} onOpenChange={setShowFilterSheet}>
             <SheetContent side={"bottom"} className="h-[90vh]">
               <ContentFilters
-                onClickPopover={() => setShowFilterPopup(false)}
+                onClickPopover={() => {
+                  console.log("Click outside sheet");
+                  setShowFilterSheet(false);
+                }}
               />
             </SheetContent>
           </Sheet>

@@ -82,6 +82,7 @@ export default async function Page({
         }}
         character={character}
         asideClassName="character"
+        showBackButton={true}
       ></MainLayoutWrapper>
     </>
   );

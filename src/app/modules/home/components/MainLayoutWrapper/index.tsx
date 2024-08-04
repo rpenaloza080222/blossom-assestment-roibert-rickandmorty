@@ -8,6 +8,7 @@ export type MainLayoutWrapperProps = {
   asideClassName?: string;
   mainClassName?: string;
   showMain?: boolean;
+  showBackButton?: boolean
 };
 
 const defaultCharacter: Character = {
@@ -40,6 +41,7 @@ export default function MainLayoutWrapper({
   character,
   asideClassName,
   showMain,
+  showBackButton = false
 }: MainLayoutWrapperProps) {
   return (
     <main className="flex bg-white h-screen ">

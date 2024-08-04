@@ -7,18 +7,19 @@ export type MainContentProps = {
   character: Character;
   show?: boolean;
   className?: string
+  showBackButton?:boolean
 };
 
-export default function MainContent({ character, show, className }: MainContentProps) {
+export default function MainContent({ character, show,showBackButton=false, className }: MainContentProps) {
   const nameSplit = character.name.split(" ");
   const initials = nameSplit.map((name) => name[0]);
   return (
     <>
       { (
         <>
-          <div className={`flex py-6 px-6 xl:px-24  w-full flex-1 ${className}`}>
+          <div className={`flex py-6 px-6 xl:px-24  w-full flex-1  ${className}`}>
             <div className="flex flex-col w-full">
-              <Button  variant={"ghost"} className="text-primary w-fit mb-4">
+              {showBackButton &&  <Button  variant={"ghost"} className={` text-primary w-fit mb-4`}>
                 <Link href={"/"} title="pagina principal">
                 <svg
                   width="20"
@@ -37,7 +38,8 @@ export default function MainContent({ character, show, className }: MainContentP
                 </svg>
                 </Link>
                 
-              </Button>
+              </Button>}
+             
               <div className="bg-slate-200 size-20 rounded-full relative mb-4">
                 <Avatar className="w-full h-full">
                   <AvatarImage

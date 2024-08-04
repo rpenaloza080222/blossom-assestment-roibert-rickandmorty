@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FilledHeartIcon from "@/app/modules/shared/components/FilledHeartIcon";
 import { cn } from "@/lib/utils";
 import { useFavoriteStore } from "../../stores";
+import { useSearchParams } from "next/navigation";
 
 export type CardCharacterProps = {
   character: Character;
@@ -13,6 +14,7 @@ export type CardCharacterProps = {
 export default function CardCharacter({ character, isFavorite }: CardCharacterProps) {
   const nameSplit = character.name.split(" ");
   const initials = nameSplit.map((name) => name[0]);
+  const searchParams = useSearchParams()
   const favorites = useFavoriteStore((state) => state.favorites);
   const addFavorite = useFavoriteStore((state) => state.addFavorite);
 
@@ -20,13 +22,17 @@ export default function CardCharacter({ character, isFavorite }: CardCharacterPr
     addFavorite(character);
   };
 
+  const parseCurrentSearchParams=()=>{
+    return new URLSearchParams(searchParams).toString()
+  }
+
   return (
     <div
       key={character.id}
       className="flex items-center border-t border-t-[#E5E7EB] rounded-lg gap-4 px-5 py-4 cursor-pointer hover:bg-primary-100 transition-all duration-200"
     >
       <Link
-        href={`/${character.id}`}
+        href={`/${character.id}?${parseCurrentSearchParams()}`}
         title={`${character.name}`}
         className="flex w-full items-center gap-4"
       >

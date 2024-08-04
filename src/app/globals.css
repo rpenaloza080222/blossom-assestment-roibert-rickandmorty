@@ -72,3 +72,7 @@
   @apply hidden lg:flex
 }
 
+.main .back-button{
+  @apply block lg:hidden
+}
+
