@@ -49,6 +49,7 @@ export default function MainLayoutWrapper({
       <MainContent
         className={mainClassName}
         character={character ?? defaultCharacter}
+        showBackButton={showBackButton}
       />
     </main>
   );
