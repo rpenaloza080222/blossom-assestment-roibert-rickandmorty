@@ -12,7 +12,8 @@ const getCharacterById = () => {
     status
     species
     gender
-    image
+    image,
+    type
   }
   }`
 

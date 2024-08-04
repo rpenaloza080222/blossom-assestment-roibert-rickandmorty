@@ -21,5 +21,6 @@ export const useFiltersStore = create<FiltersState>()((set) => ({
     },
     set: (filters) => {
         set((state) => ({ ...state, ...filters }))
-    }
+    },
+
 }))

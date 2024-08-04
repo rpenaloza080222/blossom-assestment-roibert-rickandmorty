@@ -2,6 +2,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useFiltersStore } from "../stores/filters";
 import { useEffect } from "react";
 import { FILTERS_KEY } from "../constants/filters";
+import { FiltersKeyAvailable } from "../../shared/components/FiltersInput";
 
 export type FilterCharactersParams = {
     onClickPopover: () => void
@@ -51,7 +52,7 @@ export const useFiltersCharacters = ({ onClickPopover }: FilterCharactersParams)
         })
     }, [initFilters, searchParams])
 
-    const isFilterSelected = (filterType: "character" | "species", filterValue: string) => {
+    const isFilterSelected = (filterType: FiltersKeyAvailable, filterValue: string) => {
         return filters[filterType] === filterValue
     }
 
